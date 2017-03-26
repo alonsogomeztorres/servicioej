@@ -1,0 +1,11 @@
+application: contadores-160617
+version: 1
+runtime: php
+api_version: 1
+
+runtime_config:
+  document_root: web
+  
+handlers:
+- url: /server.php
+script: server.php
