@@ -16,7 +16,7 @@
     {
         //$archivoXml = "gs://contadores-160617.appspot.com/contadores.xml";
         $archivoXml = "contadores-160617.appspot.com/contadores.xml";
-        $crea = TRUE;
+        //$crea = TRUE;
         
         if(!file_exists($archivoXml))
         {
@@ -39,7 +39,7 @@
             }*/
         }
         
-        return $crea;
+        //return $crea;
     }
 
     function CrearContador($nombre, $usuario)
@@ -56,7 +56,7 @@
             $nuevo_contador->addChild('valor', 0);
             $dom->asXML($archivoXml);
         } else {
-            $crea = FALSE;
+            $crea = FALSE;            
         }
             
     	return $crea;
@@ -140,8 +140,12 @@
         
         if($encontrado)
         {
-            $dom->contador[$i]->valor = $nuevo_valor;
-            $dom->asXML($archivoXml);
+            if ($nuevo_valor > 0) {
+                $dom->contador[$i]->valor = $nuevo_valor;
+                $dom->asXML($archivoXml);
+            } else {
+                throw new SoapFault("Client", "Debe enviar un valor numerico mayor que 0");
+            }
         }
         
         return $encontrado;
@@ -194,6 +198,8 @@
         {
             unset($dom->contador[$i]);
             $dom->asXML($archivoXml);
+        } else {
+            throw new SoapFault("Client", "Contador inexistente");
         }
         
         return $encontrado;

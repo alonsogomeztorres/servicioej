@@ -4,5 +4,5 @@ runtime: php
 api_version: 1
 
 handlers:
-- url: /index.html
-script: index.html
+- url: /
+script: admin.php

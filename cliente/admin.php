@@ -146,22 +146,31 @@
                             } 
                             //elseif($_POST["asignar"]) {  
                             case 'Asignar': {
-                                if ($client->asignar_contador($_POST["contador"], $_POST["usuario"], $_POST["valor"])) {
-                                    echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> asignado nuevo valor "
-                                            . "<strong>" . ($_POST["valor"] > 0 ? $_POST["valor"] : "0") . "</strong></p>";                                
-                                } else {
-                                    echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> no encontrado" . 
-                                            " para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
+                                try {
+                                    if ($client->asignar_contador($_POST["contador"], $_POST["usuario"], $_POST["valor"])) {
+                                        echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> asignado nuevo valor "
+                                                . "<strong>" . ($_POST["valor"] > 0 ? $_POST["valor"] : "0") . "</strong></p>";                                
+                                    } else {
+                                        echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> no encontrado" . 
+                                                " para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
+                                    }
+                                }
+                                catch (SoapFault $error) {
+                                    echo "<p lang='es'>Excepción capturada: <strong>" . $error->faultstring . "</strong></p>";
                                 }
                                 break;
                             } 
                             //elseif($_POST["eliminar"]) {  
                             case 'Eliminar': {
-                                if ($client->eliminar_contador($_POST["contador"], $_POST["usuario"])) {
-                                    echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> eliminado";
-                                } else {
-                                    echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> no encontrado" . 
-                                            " para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
+                                try {
+                                    if ($client->eliminar_contador($_POST["contador"], $_POST["usuario"])) {
+                                        echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> eliminado";
+                                    } /*else {
+                                        echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> no encontrado" . 
+                                                " para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
+                                    }*/
+                                } catch (SoapFault $error) {
+                                    echo "<p lang='es'>Excepción capturada: <strong>" . $error->faultstring . "</strong></p>";
                                 }
                                 break;
                             }
