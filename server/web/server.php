@@ -1,45 +1,17 @@
 <?php    
-    /*require '../vendor/autoload.php';
-
-    use Google\Cloud\Storage\StorageClient;
-
-    $storage = new StorageClient([
-        'projectId' => 'contadores-160617.appspot.com'
-    ]);
-    $storage->registerStreamWrapper();
-*/
-  
-    //Función para crear fichero inicial y un contador
-    //Si el fichero existe comprueba si el contado no existe y si es así crea el contado con valor 0
-    //Si existe el fichero y existe el contador no hace nada
+   
+    //Función mediante la cual se creará un fichero de contadores en formato xml. Comprueba si el fichero existe, si existe no hace nada y si no existe genera la raiz del fichero xml que contendrá todos los contadores.
     function CrearArchivoContadores()//($nombre, $usuario)
     {
         //$archivoXml = "gs://contadores-160617.appspot.com/contadores.xml";
         $archivoXml = "contadores-160617.appspot.com/contadores.xml";
-        //$crea = TRUE;
-        
+                
         if(!file_exists($archivoXml))
         {
             $dom = new SimpleXMLElement("<raiz></raiz>");
-        /*    $nuevo_contador = $dom->addChild('contador');
-            $nuevo_contador->addChild('usuario', $usuario);
-            $nuevo_contador->addChild('nombre', $nombre);
-            $nuevo_contador->addChild('valor', 0);
-        */    $dom->asXML($archivoXml);       
-        /*} else {            
-            if(!leer_contador($nombre, $usuario)) {
-                $dom = simplexml_load_file($archivoXml);
-                $nuevo_contador = $dom->addChild('contador');
-                $nuevo_contador->addChild('usuario', $usuario);
-                $nuevo_contador->addChild('nombre', $nombre);
-                $nuevo_contador->addChild('valor', 0);
-                $dom->asXML($archivoXml);
-            } else {
-                $crea = FALSE;
-            }*/
+            $dom->asXML($archivoXml);               
         }
         
-        //return $crea;
     }
 
     function CrearContador($nombre, $usuario)

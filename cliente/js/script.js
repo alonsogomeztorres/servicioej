@@ -1,9 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 //creamos una función para crear las cookies
 
 function setCookie(cname, cvalue, exdays) {
@@ -61,26 +55,3 @@ function accesible_font_size(valor) {
 
     setCookie("accesiblefont", valor, 3600);
 }
-
-/*
-function accesible_font_med(valor) {
-    document.getElementsByTagName("body")[0].setAttribute("style", "font: 18px 'segoe ui', 'lucida sans unicode', 'lucida grande', lucida, sans-serif;");
-
-    elementos = document.getElementsByTagName("input");
-    for (var i = elementos.length - 1; i >= 0; i--) {
-        elementos[i].setAttribute("style", "font: 18px 'segoe ui', 'lucida sans unicode', 'lucida grande', lucida, sans-serif;");
-    }
-
-    setCookie("accesiblefont", 18, 3600);
-}
-
-function accesible_font_max(valor) {        
-    document.getElementsByTagName("body")[0].setAttribute("style", "font: 22px 'segoe ui', 'lucida sans unicode', 'lucida grande', lucida, sans-serif;");
-    
-    elementos = document.getElementsByTagName("input");
-    for (var i = elementos.length - 1; i >= 0; i--) {
-        elementos[i].setAttribute("style", "font: 22px 'segoe ui', 'lucida sans unicode', 'lucida grande', lucida, sans-serif;");
-    }
-    setCookie("accesiblefont", 22, 3600);
-}
-*/
