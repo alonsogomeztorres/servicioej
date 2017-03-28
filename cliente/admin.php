@@ -43,14 +43,6 @@
         <form method="POST">
         
         <nav>
-            <!-- <ul>
-                <li>Consultar</li>
-                <li>Crear</li>                    
-                <li>Incrementar</li>
-                <li>Resetear</li>
-                <li>Asignar</li>
-                <li>Eliminar</li>
-            </ul> -->
             
             <input type="submit" name="acciones" value ="Consultar">
             <input type="submit" name="acciones" value ="Crear">
@@ -86,103 +78,98 @@
                 <div class="resultados">
                 <?php
                     
-                    libxml_disable_entity_loader(false);                    
-            
-                    /*if($_POST["consultar"] or $_POST["consultar"] or $_POST["crear"] or
-                            $_POST["incrementar"] or $_POST["resetear"] or $_POST["asignar"] or $_POST["eliminar"]) {*/
-                    if(isset($_POST["acciones"])) {
-                        $location = "http://localhost:8889/server.php";
-                        $client = new SoapClient (null, array('location'=>$location, 'uri'=>"http://localhost:8889",
-                            'trace'=>1));
-                    	
-                        $client->CrearArchivoContadores();
+                libxml_disable_entity_loader(false);                    
+        
+                if(isset($_POST["acciones"])) {
+                    $location = "http://localhost:8889/server.php";
+                    $client = new SoapClient (null, array('location'=>$location, 'uri'=>"http://localhost:8889",
+                        'trace'=>1));
+                    
+                    $client->CrearArchivoContadores();
 
-                        switch($_POST["acciones"]) {
-                            //if($_POST["consultar"]) {                   
-                            case 'Consultar': {
-                                $visitas = $client->leer_contador($_POST["contador"], $_POST["usuario"]);
-                                if($visitas >= 0) {                                
-                                    echo "<p lang='es'>Numero de visitas: <b>".$visitas."</b></p>";
-                                } else {
-                                    echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> no encontrado" . 
-                                            " para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
-                                }
-                                break;
-                            } 
-                            //elseif($_POST["crear"]) {                   
-                            case 'Crear': {
-                                if ($client->CrearContador($_POST["contador"], $_POST["usuario"])) {
-                                    echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> creado" . 
-                                            " para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
-                                } else {
-                                    echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> no creado." . 
-                                            " Ya existe para para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
-                                }          
-                                break;
-                            } 
-                            //elseif($_POST["incrementar"]) {  
-                            case 'Incrementar': {
-                                $visitas = $client->leer_contador($_POST["contador"], $_POST["usuario"]);
-                                if($visitas >= 0) {                                
-                                    echo "<p lang='es'>Numero de visitas antes de incrementar: <b>".$visitas."</b></p>";
-                                    $client->incrementar_contador($_POST["contador"], $_POST["usuario"]);
-                                    echo "<p lang='es'>Numero de visitas actual: <b>". ($visitas + 1) ."</b></p>";
-                                } else {
-                                    echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> no encontrado" . 
-                                            " para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
-                                }
-                                break;
-                            } 
-                            //elseif($_POST["resetear"]) {  
-                            case 'Resetear': {
-                                if ($client->resetear_contador($_POST["contador"], $_POST["usuario"])) {
-                                    echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> reseteado a "
-                                            . "<strong>0</strong>";
-                                } else {
-                                    echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> no encontrado" . 
-                                            " para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
-                                }
-                                break;
-                            } 
-                            //elseif($_POST["asignar"]) {  
-                            case 'Asignar': {
-                                try {
-                                    if ($client->asignar_contador($_POST["contador"], $_POST["usuario"], $_POST["valor"])) {
-                                        echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> asignado nuevo valor "
-                                                . "<strong>" . ($_POST["valor"] > 0 ? $_POST["valor"] : "0") . "</strong></p>";                                
-                                    } else {
-                                        echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> no encontrado" . 
-                                                " para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
-                                    }
-                                }
-                                catch (SoapFault $error) {
-                                    echo "<p lang='es'>Excepción capturada: <strong>" . $error->faultstring . "</strong></p>";
-                                }
-                                break;
-                            } 
-                            //elseif($_POST["eliminar"]) {  
-                            case 'Eliminar': {
-                                try {
-                                    if ($client->eliminar_contador($_POST["contador"], $_POST["usuario"])) {
-                                        echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> eliminado";
-                                    } /*else {
-                                        echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> no encontrado" . 
-                                                " para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
-                                    }*/
-                                } catch (SoapFault $error) {
-                                    echo "<p lang='es'>Excepción capturada: <strong>" . $error->faultstring . "</strong></p>";
-                                }
-                                break;
+                    switch($_POST["acciones"]) {
+                                        
+                    case 'Consultar': {
+                        $visitas = $client->leer_contador($_POST["contador"], $_POST["usuario"]);
+                        if($visitas >= 0) {                                
+                            echo "<p lang='es'>Numero de visitas: <b>".$visitas."</b></p>";
+                        } else {
+                            echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> no encontrado" . 
+                                    " para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
+                        }
+                        break;
+                    } 
+                                    
+                    case 'Crear': {
+                        if ($client->CrearContador($_POST["contador"], $_POST["usuario"])) {
+                            echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> creado" . 
+                                    " para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
+                        } else {
+                            echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> no creado." . 
+                                    " Ya existe para para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
+                        }          
+                        break;
+                    } 
+                    
+                    case 'Incrementar': {
+                        $visitas = $client->leer_contador($_POST["contador"], $_POST["usuario"]);
+                        if($visitas >= 0) {                                
+                            echo "<p lang='es'>Numero de visitas antes de incrementar: <b>".$visitas."</b></p>";
+                            $client->incrementar_contador($_POST["contador"], $_POST["usuario"]);
+                            echo "<p lang='es'>Numero de visitas actual: <b>". ($visitas + 1) ."</b></p>";
+                        } else {
+                            echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> no encontrado" . 
+                                    " para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
+                        }
+                        break;
+                    } 
+                    
+                    case 'Resetear': {
+                        if ($client->resetear_contador($_POST["contador"], $_POST["usuario"])) {
+                            echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> reseteado a "
+                                    . "<strong>0</strong>";
+                        } else {
+                            echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> no encontrado" . 
+                                    " para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
+                        }
+                        break;
+                    } 
+                    
+                    case 'Asignar': {
+                        try {
+                            if ($client->asignar_contador($_POST["contador"], $_POST["usuario"], $_POST["valor"])) {
+                                echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> asignado nuevo valor "
+                                        . "<strong>" . ($_POST["valor"] > 0 ? $_POST["valor"] : "0") . "</strong></p>";                                
+                            } else {
+                                echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> no encontrado" . 
+                                        " para el usuario <strong>" . $_POST["usuario"]  . "</strong></p>";
                             }
                         }
+                        catch (SoapFault $error) {
+                            echo "<p lang='es'>Excepción capturada: <strong>" . $error->faultstring . "</strong></p>";
+                        }
+                        break;
+                    } 
+                    
+                    case 'Eliminar': {
+                        try {
+                            if ($client->eliminar_contador($_POST["contador"], $_POST["usuario"])) {
+                                echo "<p lang='es'>Contador <strong>" . $_POST["contador"] . "</strong> eliminado";
+                            }                            
+                        } catch (SoapFault $error) {
+                            echo "<p lang='es'>Excepción capturada: <strong>" . $error->faultstring . "</strong></p>";
+                        }
+                        break;
                     }
+                    }
+                }
                 ?>
                 </div>
             </div>
             
         </section>             
         </form>
-<!--        <div id="accesibilidad" style="clear: both;">-->
+
         <form id="accesibilidad" style="clear: both;" method="POST">
             <nav>
                 <div id="titulo_accesibilidad">
@@ -196,9 +183,6 @@
                 
             </nav>
         </form>
-<!--        </div>-->
-
-        
         
         <footer>
             <p lang="es">Alonso Gómez Torres · Ingeniería de Servidores Web<br/>Master en Ciencia de datos e Ingeniería de Computadores</p>
