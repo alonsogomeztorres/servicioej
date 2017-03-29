@@ -30,11 +30,12 @@ function accesible_font() {
     if(!haycookie) {
         setCookie("accesiblefont", 14, 3600);
     } else {
-        document.getElementsByTagName("body")[0].setAttribute("style", "font: " + haycookie + "px 'segoe ui', 'lucida sans unicode', 'lucida grande', lucida, sans-serif;");
+       /* document.getElementsByTagName("body")[0].setAttribute("style", "font: " + haycookie + "px 'segoe ui', 'lucida sans unicode', 'lucida grande', lucida, sans-serif;");
         document.getElementsByTagName("header")[0].setAttribute("height", (haycookie*6) + "px");
         document.getElementsByTagName("legend")[0].setAttribute("style", "font-size: " + haycookie + "px;");
         document.getElementsByClassName("infocab")[0].setAttribute("style", "font-size: " + haycookie + "px;");
         document.getElementsByClassName("resultados")[0].setAttribute("style", "font-size: " + haycookie + "px;");
+        */
         accesible_font_size(haycookie);
     } 
 }
